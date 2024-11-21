@@ -18,7 +18,7 @@
 
         body {
 
-            background-color: #373700;
+            background-color: #370037;
 
             color: #FFFFFF;
 
@@ -106,7 +106,7 @@
 
                 const url = `http://moscowtransport.app/api/stop_v2/${u}`;
 
-                let response = await fetch(url);
+                let response = await fetch(url,{mode: 'cors'});
 
 
 

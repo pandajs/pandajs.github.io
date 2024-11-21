@@ -1,19 +1,181 @@
-<html>
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
 <head>
-  <style>
-    html,
-    body{
-      background: #FF0000;
-    }
-  </style>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    <style>
+
+        html,
+
+        body {
+
+            background-color: #373737;
+
+            color: #FFFFFF;
+
+            font-size: 16px;
+
+            font-family: monospace;
+
+        }
+
+
+
+
+
+        .head {}
+
+    </style>
+
+    <script>
+
+        "use strict"
+
+
+
+        let urla = [
+
+            'b5b301b6-fb18-44e8-998f-b28f1122e7f4',// 5 соколиной
+
+            'b5a359b5-152c-4d3a-b9f9-7b11d954bf84',// проспект буденного
+
+            'eacf80ee-9af3-4db7-908e-93685e17e36c',// Дк компрессор
+
+        ]
+
+        let log = (...a) => console.log(...a);
+
+
+
+        let secToh = (sec) => {
+
+            let tos = (n) => n < 10 ? `0${n}` : `${n}`;
+
+
+
+            let h = Math.trunc(sec / 60 / 60);
+
+            let m = Math.trunc((sec - h * 60 * 60) / 60);
+
+            let s = sec - h * 60 * 60 - m * 60;
+
+
+
+            if (h > 0) {
+
+                return `${tos(h)}h${tos(m)}m${tos(s)}s`;
+
+            } else if (m > 0) {
+
+                return `${tos(m)}:${tos(s)}`;
+
+            } else if (s > 0) {
+
+                return `00:${tos(s)}`;
+
+            } else {
+
+                return `00:00`;
+
+            }
+
+
+
+        }
+
+        async function init() {
+
+
+
+
+
+            for (let u of urla) {
+
+
+
+
+
+                const url = `https://moscowtransport.app/api/stop_v2/${u}`;
+
+                let response = await fetch(url);
+
+
+
+                let commits = await response.json(); // читаем ответ в формате JSON
+
+
+
+                let routePath = commits.routePath;
+
+                let s = '';
+
+                s += `Остановка: ${commits.name} к работе<br>`;
+
+
+
+                for (let i in routePath) {
+
+
+
+                    if (['12', '37', '50'].indexOf(routePath[i].number) != -1) {
+
+                        s += `${routePath[i].number} — `;
+
+                        for (let j in routePath[i].externalForecast) {
+
+                            let byTelemetry = (routePath[i].externalForecast[j].byTelemetry == 1) ? ' ' : '?';
+
+                            s += `${secToh(routePath[i].externalForecast[j].time)}${byTelemetry}, `;
+
+                        }
+
+                        // log(routePath[i]);
+
+                        s += '<br>'
+
+                    }
+
+
+
+                }
+
+                log(routePath);
+
+                let logpg = document.createElement("div");
+
+                document.body.append(logpg);
+
+                logpg.className = 'head';
+
+                logpg.innerHTML = s;
+
+            }
+
+        }
+
+
+
+    </script>
+
 </head>
-<body>
-  <h>Qþ1124ttffvhjhvccvbhvvccgvxdccvvvvvvvvvvvvvvvvv
-    ghhbjjjjhjrjekrjrjrejrjrjjfjrjrjfjrjrjrjrjjrjrjrjrj4j4jrjrjrjrj
-    jejejejejejejrbbdjdbrbdhfbehjfjfjfjrjrjrjrjrjrjjrbr
-    jdjdjfjfkfkririfjfjfjrjrjhchrbr rbfjjrb4bbrj4brbrb4b4bjdj4jbr
-    jdjfjfjfjfjrbhcbrvhxjrnejdbhrvvwjejbrbfhr
-    kfjfjrjrjfjfjfjfjjrbrjwkwnvrvjej
-  </h>
+
+
+
+<body onload="init()">
+
+
+
 </body>
+
+
+
 </html>

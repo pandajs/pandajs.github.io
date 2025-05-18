@@ -15,20 +15,36 @@
                 t1.innerText = `x = ${acl.x}`;
                 t2.innerText = `y = ${acl.y}`;
                 t3.innerText = `z = ${acl.z}`;
-                t4.innerText = `Σ = ${(acl.x**2+acl.y**2+acl.z**2)**0.5}`;
+                t4.innerText = `Σ = ${(acl.x ** 2 + acl.y ** 2 + acl.z ** 2) ** 0.5}`;
             });
 
             acl.start();
         }
+        function getLocation() {
+            // Если геолокация поддерживается браузером
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                document.getElementById("location").innerHTML = "Геолокация не поддерживается.";
+            }
+        }
 
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            document.getElementById("location").innerHTML = "Широта: " + lat + "<br>Долгота: " + lon;
+        }
     </script>
 </head>
 
 <body>
-<div id="t1"></div>
-<div id="t2"></div>
-<div id="t3"></div>
-<div id="t4"></div>
+    <div id="t1"></div>
+    <div id="t2"></div>
+    <div id="t3"></div>
+    <div id="t4"></div>
+    <button onclick="getLocation()">Get Location</button>
+    <p id="location"></p>
+
 </body>
 
 </html>

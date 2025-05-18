@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script>
-        const acl = new Accelerometer({ frequency: 6 });
+        const acl = new Magnetometer({ frequency: 6 });
         window.onload = () => {
 
 
@@ -20,6 +20,7 @@
 
             acl.start();
             console.log(acl);
+            t.innerText = `a = ${acl.z}`;
         }
 
     </script>

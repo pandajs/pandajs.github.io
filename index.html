@@ -12,22 +12,23 @@
 
 
             acl.addEventListener("reading", () => {
-                t.innerText = `a = ${acl.z}`;
-                console.log(`Acceleration along the X-axis ${acl.x}`);
-                console.log(`Acceleration along the Y-axis ${acl.y}`);
-                console.log(`Acceleration along the Z-axis ${acl.z}`);
+                t1.innerText = `x = ${acl.x}`;
+                t2.innerText = `y = ${acl.y}`;
+                t3.innerText = `z = ${acl.z}`;
+                t4.innerText = `Σ = ${(acl.x**2+acl.y**2+acl.z**2)**0.5}`;
             });
 
             acl.start();
-            console.log(acl);
-            t.innerText = `a = ${acl.z}`;
         }
 
     </script>
 </head>
 
 <body>
-<div id="t"></div>
+<div id="t1"></div>
+<div id="t2"></div>
+<div id="t3"></div>
+<div id="t4"></div>
 </body>
 
 </html>

@@ -12,9 +12,7 @@
 
 
             acl.addEventListener("reading", () => {
-                let t = document.createElement("div");
-                document.body.append(t);
-                t.innerText = `a = ${acl.x}`;
+                t.innerText = `a = ${acl.z}`;
                 console.log(`Acceleration along the X-axis ${acl.x}`);
                 console.log(`Acceleration along the Y-axis ${acl.y}`);
                 console.log(`Acceleration along the Z-axis ${acl.z}`);
@@ -22,16 +20,13 @@
 
             acl.start();
             console.log(acl);
-            let t = document.createElement("div");
-            document.body.append(t);
-            t.innerText = `a = ${acl.activated}`;
         }
 
     </script>
 </head>
 
 <body>
-
+<div id="t"></div>
 </body>
 
 </html>

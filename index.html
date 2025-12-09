@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        @font-face {
+            font-family: "XITS";
+            src: url("XITS-Regular.otf");
+        }
+
+        @font-face {
+            font-family: "XITSMath";
+            src: url("XITSMath-Regular.otf");
+        }
+
         /* Стили страницы */
         @media screen and (aspect-ratio>16/9) {
             section {
@@ -94,6 +104,10 @@
             html {
                 font-size: calc(0.05*1080px);
             }
+        }
+
+        math {
+            font-family: "XITSMath";
         }
 
         /* Стили слайда */
@@ -647,7 +661,7 @@
                 // "TeX Gyre Pagella Math",
                 // "TeX Gyre Schola Math",
                 // "TeX Gyre Termes Math",
-                "XITS Math",
+                "XITSMath",
                 //    "math"
             ]
 

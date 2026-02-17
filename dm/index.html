@@ -8,10 +8,11 @@
     <style>
         body {
             font-size: 20px;
+            min-width: 700px;
         }
 
         input {
-            font-size: 20px;
+            font-size: 0.9em;
         }
 
         .input span:nth-child(1) {
@@ -42,6 +43,11 @@
 </head>
 
 <body>
+    <span>Размер шрифта</span><input style="width: 50px;" value="20" type="number" id="id_font_size">
+
+    <button onclick="
+    let buf = document.getElementById('id_font_size').value.replace(',', '.');
+    document.querySelector('body').style.setProperty('font-size', `${buf}px`)">Принять</button>
     <h2>Ссылки</h2>
     <ul>
         <li> <a href="./motovario инструкции.pdf" target="_blank">Motovario инструкции</a></li>
@@ -213,7 +219,7 @@
             return rad[i] * 10 ** l
         };
         for (let i in $) {
-            let buf = localStorage.getItem("13c4337f1c0649bdbbb63b0e60fc7b2e_"+i);
+            let buf = localStorage.getItem("13c4337f1c0649bdbbb63b0e60fc7b2e_" + i);
             if (buf)
                 $[i] = buf;
         }
@@ -311,7 +317,7 @@
 
                 readObj($);
                 for (let i in $) {
-                    localStorage.setItem("13c4337f1c0649bdbbb63b0e60fc7b2e_"+i, $[i]);
+                    localStorage.setItem("13c4337f1c0649bdbbb63b0e60fc7b2e_" + i, $[i]);
                 }
                 printObj($);
 

@@ -8,7 +8,7 @@
     <style>
         body {
             font-size: 20px;
-            min-width: 700px;
+            min-width: 800px;
         }
 
         input {
@@ -22,7 +22,6 @@
 
         .input span:nth-child(2) {
             width: 80px;
-
             display: inline-block;
         }
 
@@ -44,10 +43,10 @@
 
 <body>
     <span>Размер шрифта</span><input style="width: 50px;" value="20" type="number" id="id_font_size">
-
     <button onclick="
     let buf = document.getElementById('id_font_size').value.replace(',', '.');
     document.querySelector('body').style.setProperty('font-size', `${buf}px`)">Принять</button>
+
     <h2>Ссылки</h2>
     <ul>
         <li> <a href="./motovario инструкции.pdf" target="_blank">Motovario инструкции</a></li>
@@ -56,11 +55,12 @@
         <li><a href="./таблица для расчета.pdf" target="_blank">Таблица для расчета</a></li>
         <li><a href="./Таблицы.pdf" target="_blank">Справочные таблицы</a></li>
     </ul>
-    <h2>Расчет</h2>
 
+    <h2>Расчет</h2>
     <script>
         const PI = Math.PI;
 
+        //Вывод или обновление с полями ввода
         printObj = (o) => {
             for (let i in o) {
                 if (document.getElementById(i) == null) {
@@ -84,6 +84,7 @@
         }//printObj
 
 
+        //Вывод или обновление без ввода
         showObj = (o) => {
             for (let i in o) {
                 if (document.getElementById(i) == null) {
@@ -109,7 +110,7 @@
             }
         }//showObj
 
-
+        //Добавление комментариев
         printCom = (o) => {
             for (let i in o) {
                 let com = document.createElement('span');
@@ -119,27 +120,14 @@
             }
         }//printCom
 
+        //Чтение введенных значений
         readObj = (o) => {
             for (let i in o) {
-
                 o[i] = +document.getElementById(i).value.replace(',', '.');
             }
         }//readObj
 
-
-        printPre = (s, id) => {
-            if (document.getElementById(id) == null) {
-                let pre = document.createElement('pre');
-                document.body.append(pre);
-
-                pre.id = id;
-                pre.innerText = s;
-            } else {
-                document.getElementById(id).innerText = s;
-            }
-
-        }//printPre
-
+        //Кнопка выполнения функции
         exeBut = (name, exe) => {
             let button = document.createElement('button');
             document.body.append(button);
@@ -147,10 +135,28 @@
             button.innerText = name;
             button.onclick = exe;
             button.click();
-        }
+        }//exeBut
 
+        //Округление по ряду
+        let r40 = (a) => {
+            const rad = [1.00, 1.09, 1.19, 1.29, 1.41, 1.53, 1.67, 1.82, 1.98, 2.15, 2.35, 2.56, 2.78, 3.03, 3.30, 3.59, 3.91, 4.26, 4.64, 5.05, 5.50, 5.99, 6.53, 7.11, 7.74, 8.43, 9.18];
+            let l = Math.floor(Math.log10(a));
+            let b = a / 10 ** l;
+            let i;
+            for (i in rad) if (rad[i] >= b) break;
+            return rad[i] * 10 ** l
+        };//r40
 
+        let module = (a) => {
+            const rad = [1, 1.125, 1.25, 1.375, 1.5, 1.75, 2, 2.25, 3, 3.5, 4, 4.5, 6, 7, 8, 9];
+            let l = Math.floor(Math.log10(a));
+            let b = a / 10 ** l;
+            let i;
+            for (i in rad) if (rad[i] >= b) break;
+            return rad[i] * 10 ** l
+        };//module
 
+        //Комментарии к условию
         let $_coment = {
 
             P_1: 'Вт Мощность на быстроходном валу',
@@ -161,28 +167,27 @@
             K_A: "Коэф. внешней динамической нагрузки",
             K_H1: "Коэф. внутренний динамической нагрузки I ступени",
             ψ_ba1: "Коэф. ширины венца I ступени",
-            σ_HP1: "Допускаемые контактные напряжения I ступени",
-            σ_FP1: "Допускаемые изгибные напряжения I ступени",
-            a_wmin1: "Минимальное межосевое расстояние I ступени (=>0)",
-            m1: "Модуль I ступени (auto – 0)",
+            σ_HP1: "МПа Допускаемые контактные напряжения I ступени",
+            σ_FP1: "МПа Допускаемые изгибные напряжения I ступени",
+            a_wmin1: "мм Минимальное межосевое расстояние I ступени (=>0)",
+            m1: "мм Модуль I ступени (auto – 0)",
             z1Σ_c: "Суммарное число зубьев I ступени (auto – 0)",
             K_H2: "Коэф. внутренний динамической нагрузки II ступени",
             ψ_ba2: "Коэф. ширины венца II ступени",
-            σ_HP2: "Допускаемые контактные напряжения II ступени",
-            σ_FP2: "Допускаемые изгибные напряжения II ступени",
-            a_wmin2: "Минимальное межосевое расстояние II ступени (=>0)",
-            m2: "Модуль II ступени (auto – 0)",
+            σ_HP2: "МПа Допускаемые контактные напряжения II ступени",
+            σ_FP2: "МПа Допускаемые изгибные напряжения II ступени",
+            a_wmin2: "мм Минимальное межосевое расстояние II ступени (=>0)",
+            m2: "мм Модуль II ступени (auto – 0)",
             z2Σ_c: "Суммарное число зубьев II ступени (auto – 0)"
         }
+
+        //Условие
         let $ = {
             P_1: 250,
             n_2: 69.1,
             T_2: 33,
-            u: 20.26,//Передаточное число редуктора
-
-
-            u_1: 7,//Передаточное число первой ступени
-
+            u: 20.26,
+            u_1: 7,
             K_A: 1.25,
 
             K_H1: 1,
@@ -202,38 +207,7 @@
             z2Σ_c: 0,
         }
 
-        let r40 = (a) => {
-            const rad = [1, 1.06, 1.12, 1.18, 1.25, 1.32, 1.40, 1.50, 1.60, 1.70, 1.80, 1.90, 2.00, 2.12, 2.24, 2.36, 2.50, 2.65, 2.80, 3.00, 3.15, 3.35, 3.55, 3.75, 4.00, 4.25, 4.5, 4.75, 5.00, 5.30, 5.60, 6.00, 6.30, 6.70, 7.1, 8.00, 8.5, 9.00, 9.50]
-            let l = Math.floor(Math.log10(a));
-            let b = a / 10 ** l;
-            let i;
-            for (i in rad) if (rad[i] >= b) break;
-            return rad[i] * 10 ** l
-        };
-
-        let module = (a) => {
-            const rad = [1, 1.125, 1.25, 1.375, 1.5, 1.75, 2, 2.25, 3, 3.5, 4, 4.5, 6, 7, 8, 9];
-            let l = Math.floor(Math.log10(a));
-            let b = a / 10 ** l;
-            let i;
-            for (i in rad) if (rad[i] >= b) break;
-            return rad[i] * 10 ** l
-        };
-        for (let i in $) {
-            let buf = localStorage.getItem("13c4337f1c0649bdbbb63b0e60fc7b2e_" + i);
-            if (buf)
-                $[i] = buf;
-        }
-
-        printObj($);
-        printCom($_coment);
-
-        let a_w = ({ u = 5, K_A = 1.25, K_H = 1, T = 10, ψ_ba = 0.5, σ_HP = 1000 } = {}) => {
-            return 430 * (u + 1) * ((K_A * K_H * T) / (ψ_ba * u * σ_HP ** 2)) ** (1 / 3)
-        }
-
-
-        let out = {};
+        //Комментарии к выводу
         let out_com = {
             n_1: 'об/мин Частота вращения быстроходного вала',
             T_1: 'Нм Вращающий момент на быстроходном валу',
@@ -249,14 +223,14 @@
             d_w11: "мм Начальный диаметр шестерни I ступени",
             d_w12: "мм Начальный диаметр колеса I ступени",
             b_w1: "мм Ширина венца I ступени",
-            m1_max: "мм Минимальный модуль I ступени",
-            m1_min: "мм Максимальный модуль I ступени",
+            m1_min: "мм Минимальный модуль I ступени",
+            m1_max: "мм Максимальный модуль I ступени",
             a_w2: "мм Межосевое II ступени",
             d_w21: "мм Начальный диаметр шестерни II ступени",
             d_w22: "мм Начальный диаметр колеса II ступени",
             b_w2: "мм Ширина венца II ступени",
-            m2_max: "мм Минимальный модуль II ступени",
-            m2_min: "мм Максимальный модуль II ступени",
+            m2_min: "мм Минимальный модуль II ступени",
+            m2_max: "мм Максимальный модуль II ступени",
             Δ_aw: "мм Несоосность",
             h: "мм Габарит",
 
@@ -284,7 +258,7 @@
             df12: "мм Диаметр впадин колеса",
 
 
-            m_2: "мм Модуль",
+            m_1: "мм Модуль",
             β2_min: "° Минимальный угол наклона зуба",
             z2Σmin: "Минимальное суммарное кол-во зубьев",
             z2Σmax: "Максимальное суммарное кол-во зубьев",
@@ -308,21 +282,32 @@
             df22: "мм Диаметр впадин колеса",
             u_c: "Точное передаточное число редуктора",
             Δu_c: "% Отклонение передаточного числа редуктора (=>0)"
+        };
+
+        //Вывод
+        let out = {};
+
+        //Восстановление значений из памяти
+        for (let i in $) {
+            let buf = localStorage.getItem("13c4337f1c0649bdbbb63b0e60fc7b2e_" + i);
+            if (buf) $[i] = buf;
         }
+
+        //Начало работы
+        printObj($);
+        printCom($_coment);
 
 
 
         exeBut('Обновить',
             () => {
-
-
                 readObj($);
+
+                //Запись в память
                 for (let i in $) {
                     localStorage.setItem("13c4337f1c0649bdbbb63b0e60fc7b2e_" + i, $[i]);
                 }
                 printObj($);
-
-
 
                 //кинематический расчет
                 out.$_кинематический_расчет = 0;
@@ -348,8 +333,6 @@
                 out.b_w1 = out.a_w1 * $.ψ_ba1;
                 out.m1_max = out.d_w11 / 17;
                 out.m1_min = $.K_A * $.K_H1 * 2000 * out.T_1 / out.d_w11 / out.b_w1 / $.σ_FP1;
-
-
                 out.a_w2 = r40(Math.max($.a_wmin2, 430 * (out.u_2 + 1) * (($.K_A * $.K_H2 * out.T_3) / ($.ψ_ba2 * out.u_2 * $.σ_HP2 ** 2)) ** (1 / 3)));
                 out.d_w21 = 2 * out.a_w2 / (out.u_2 + 1);
                 out.d_w22 = out.d_w21 * out.u_2;
@@ -365,14 +348,12 @@
                 if (out.m1_min <= out.m1_max)
                     out.m_1 = module((out.m1_min + out.m1_max) / 2);
 
-                if ($.m1 != 0) out.m_1 = $.m1;
+                if ($.m1 != 0) out.m_1 = module($.m1);
 
                 out.β1_min = Math.asin(PI * out.m_1 / out.b_w1) * 180 / PI;
 
-
                 out.z1Σmin = Math.ceil((2 * out.a_w1 / out.m_1) * Math.cos(22 * PI / 180));
                 out.z1Σmax = Math.floor((2 * out.a_w1 / out.m_1) * Math.cos(out.β1_min * PI / 180));
-
 
                 out.z1Σ = out.z1Σmax;
                 if ($.z1Σ_c != 0) out.z1Σ = $.z1Σ_c;
@@ -397,21 +378,16 @@
                 out.da12 = out.d12 + 2 * out.m_1;
                 out.df12 = out.d12 - 2.5 * out.m_1;
 
-
                 //Расчет второй ступени
                 out.$_Расчет_второй_ступени = 0;
                 if (out.m2_min <= out.m2_max)
                     out.m_2 = module((out.m2_min + out.m2_max) / 2);
 
-                if ($.m2 != 0) out.m_2 = $.m2;
+                if ($.m2 != 0) out.m_2 = module($.m2);
                 out.β2_min = Math.asin(PI * out.m_2 / out.b_w2) * 180 / PI;
-
-
-
 
                 out.z2Σmin = Math.ceil((2 * out.a_w2 / out.m_2) * Math.cos(22 * PI / 180));
                 out.z2Σmax = Math.floor((2 * out.a_w2 / out.m_2) * Math.cos(out.β2_min * PI / 180));
-
 
                 out.z2Σ = out.z2Σmax;
                 if ($.z2Σ_c != 0) out.z2Σ = $.z2Σ_c;
@@ -446,12 +422,8 @@
             }
         )
         printCom(out_com);
-
-
-
     </script>
 
 </body>
-
 
 </html>

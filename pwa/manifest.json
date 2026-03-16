@@ -1,10 +1,14 @@
 {
-  "name": "My PWA",
-  "icons": [
-    {
-      "src": "1.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ]
+    "name": "My PWA",
+    "icons": [
+        {
+            "src": "1.png",
+            "type": "image/png",
+            "sizes": "542x488"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
 }
